@@ -29,6 +29,7 @@ onMounted(async () => {
     </div>
     <GenericList
       :items="filteredBusStops"
+      :loading="store.state.fetchBusStops.loading"
       header="Bus Stops"
       sortField="name"
     />

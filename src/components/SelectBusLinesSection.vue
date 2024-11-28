@@ -5,9 +5,9 @@ import { useStore } from "vuex";
 
 const store = useStore();
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps<{
   selectedLine: BusLine | null;
+  loading?: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -26,17 +26,25 @@ const busLinesList = computed(() => store.state.fetchBusStops.busLinesList);
   <div class="bus-lines-select-section__container">
     <h6 class="bus-lines-select-section__title">Select Bus Line</h6>
     <div class="bus-lines-select-section__list">
-      <button
-        v-for="line in busLinesList"
-        :key="line"
-        @click="selectLine(line)"
-        :class="[
-          'bus-lines-select-section__button',
-          { selected: selectedLine === line },
-        ]"
-      >
-        {{ line }}
-      </button>
+      <template v-if="loading">
+        <p class="bus-lines-select-section__loading">Loading bus lines...</p>
+      </template>
+      <template v-else-if="busLinesList.length > 0">
+        <button
+          v-for="line in busLinesList"
+          :key="line"
+          @click="selectLine(line)"
+          :class="[
+            'bus-lines-select-section__button',
+            { selected: selectedLine === line },
+          ]"
+        >
+          {{ line }}
+        </button>
+      </template>
+      <template v-else>
+        <p class="bus-lines-select-section__empty">No bus lines available</p>
+      </template>
     </div>
   </div>
 </template>
@@ -54,6 +62,12 @@ const busLinesList = computed(() => store.state.fetchBusStops.busLinesList);
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 20px;
+}
+
+.bus-lines-select-section__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .bus-lines-select-section__button {
@@ -76,5 +90,22 @@ const busLinesList = computed(() => store.state.fetchBusStops.busLinesList);
 
 .selected:hover {
   opacity: 0.8;
+}
+
+.bus-lines-select-section__empty {
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.bus-lines-select-section__loading {
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+  text-align: center;
+  margin: 20px 0;
+  width: 100%;
 }
 </style>

@@ -13,6 +13,7 @@ const props = defineProps<{
   hiddenSortIcon?: Nullable<boolean>; // Hide sort icon
   onItemClick?: () => void; // Callback function for item click
   sortField: string;
+  loading?: boolean; // New prop for loading state
 }>();
 
 const isAscending = ref(true); // Track sorting direction
@@ -38,6 +39,7 @@ const sortItems = () => {
   isAscending.value = !isAscending.value;
 };
 </script>
+
 <template>
   <div class="generic-list__container">
     <div v-if="header" class="generic-list__header">
@@ -54,7 +56,13 @@ const sortItems = () => {
         <SortIcon />
       </div>
     </div>
-    <ul v-if="sortedItems && sortedItems.length" class="generic-list__items">
+    <div v-if="props.loading">
+      <p class="generic-list__loading">Loading...</p>
+    </div>
+    <ul
+      v-else-if="sortedItems && sortedItems.length"
+      class="generic-list__items"
+    >
       <li
         v-for="item in sortedItems"
         :key="item.id"
@@ -66,7 +74,7 @@ const sortItems = () => {
         </slot>
       </li>
     </ul>
-    <p v-else class="generic-list__error-message">No items to display.</p>
+    <p v-else class="generic-list__empty">No items to display.</p>
   </div>
 </template>
 
@@ -113,10 +121,13 @@ li:hover {
   position: relative;
 }
 
-.generic-list__error-message {
-  color: #ff4d4f; /* Red error message */
+.generic-list__empty {
+  font-weight: 600;
+  background-color: #fff;
+  padding: 10px;
   font-size: 14px;
   margin-top: 10px;
+  text-align: center;
 }
 
 .generic-list__sort-icon {
@@ -131,5 +142,15 @@ li:hover {
 }
 .generic-list__sort-icon.rotated {
   transform: rotate(180deg); /* Rotate 180 degrees */
+}
+
+.generic-list__loading,
+.generic-list__empty {
+  background: #fff;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #555;
 }
 </style>

@@ -31,7 +31,7 @@ html,
 body {
   height: 100%;
   margin: 0;
-  background: #f8f8fb;
+  background: #f8f8fb !important;
 }
 
 #app {

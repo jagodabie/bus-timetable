@@ -38,6 +38,7 @@ const handleLineUpdate = (line: BusLine | null) => {
   <SelectBusLinesSection
     :selectedLine="selectedLine"
     @update:selectedLine="handleLineUpdate"
+    :loading="store.state.fetchBusStops.loading"
   />
   <div class="bus-lines-section">
     <BusSection
@@ -50,6 +51,7 @@ const handleLineUpdate = (line: BusLine | null) => {
       <GenericList
         v-if="selectedLine && currentBusStopsList.length"
         key="stops"
+        :loading="store.state.fetchBusStops.loading"
         header="Bus Stops"
         :items="currentBusStopsList"
         v-model:selected="selectedStop"
@@ -65,6 +67,7 @@ const handleLineUpdate = (line: BusLine | null) => {
       :placeholderTitle="`Please select the bus stop first`"
     >
       <GenericList
+        :loading="store.state.fetchBusStops.loading"
         key="timetable"
         v-if="selectedStop && currentStopDepartures.length"
         v-model:selected="selectedStop"

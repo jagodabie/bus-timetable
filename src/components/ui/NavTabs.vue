@@ -29,6 +29,7 @@ nav {
 a {
   text-decoration: none;
   font-size: 14px;
+  font-weight: 600;
   line-height: 24px;
   color: #6c757d;
   position: relative;
