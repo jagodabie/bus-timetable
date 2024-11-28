@@ -86,6 +86,7 @@ li {
 }
 
 li:hover {
+  background: #f8f8fb;
   pointer-events: auto;
   cursor: pointer;
 }

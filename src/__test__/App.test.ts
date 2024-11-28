@@ -10,7 +10,6 @@ import { tabs } from "./utils";
 
 import "@testing-library/jest-dom";
 
-// Mockowane Vuex store
 const mockStore = createStore({
   modules: {
     fetchBusStops: {
@@ -23,7 +22,6 @@ const mockStore = createStore({
   },
 });
 
-// Mockowane trasy routera
 const mockRouter = createRouter({
   history: createWebHistory(),
   routes: [

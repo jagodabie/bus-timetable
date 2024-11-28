@@ -61,7 +61,6 @@ describe(
         },
       });
 
-      screen.debug();
       expect(screen.getByText("No items to display.")).toBeInTheDocument;
     });
 

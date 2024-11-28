@@ -27,61 +27,63 @@ const handleDepartureTime = () => {
     selectedStop.value
   );
 };
+
+const handleLineUpdate = (line: BusLine | null) => {
+  selectedLine.value = line;
+  selectedStop.value = null;
+};
 </script>
 
 <template>
-  <div class="bus-lines">
-    <SelectBusLinesSection
-      :selectedLine="selectedLine"
-      @update:selectedLine="selectedLine = $event"
-    />
-    <div class="bus-lines__container">
-      <BusSection
+  <SelectBusLinesSection
+    :selectedLine="selectedLine"
+    @update:selectedLine="handleLineUpdate"
+  />
+  <div class="bus-lines-section">
+    <BusSection
+      key="stops"
+      :showTitle="selectedLine && currentBusStopsList.length"
+      :sectionTitle="`Bus Line: ${selectedLine}`"
+      :onItemClick="handleDepartureTime"
+      :placeholderTitle="`Please select the bus stop first`"
+    >
+      <GenericList
+        v-if="selectedLine && currentBusStopsList.length"
         key="stops"
-        :showTitle="selectedLine && currentBusStopsList.length"
-        :sectionTitle="`Bus Line: ${selectedLine}`"
+        header="Bus Stops"
+        :items="currentBusStopsList"
+        v-model:selected="selectedStop"
         :onItemClick="handleDepartureTime"
-        :placeholderTitle="`Please select the bus stop first`"
-      >
-        <GenericList
-          v-if="selectedLine && currentBusStopsList.length"
-          key="stops"
-          header="Bus Stops"
-          :items="currentBusStopsList"
-          v-model:selected="selectedStop"
-          :onItemClick="handleDepartureTime"
-          sortField="order"
-        />
-      </BusSection>
+        sortField="order"
+      />
+    </BusSection>
 
-      <BusSection
-        :showTitle="selectedStop && currentStopDepartures.length"
-        :sectionTitle="`Bus Line: ${selectedStop?.name}`"
-        :onItemClick="handleDepartureTime"
-        :placeholderTitle="`Please select the bus stop first`"
-      >
-        <GenericList
-          key="timetable"
-          v-if="selectedStop && currentStopDepartures.length"
-          v-model:selected="selectedStop"
-          :items="currentStopDepartures"
-          :hiddenSortIcon="true"
-          header="Time"
-          sortField="time"
-        />
-      </BusSection>
-    </div>
+    <BusSection
+      :showTitle="selectedStop && currentStopDepartures.length"
+      :sectionTitle="`Bus Line: ${selectedStop?.name}`"
+      :onItemClick="handleDepartureTime"
+      :placeholderTitle="`Please select the bus stop first`"
+    >
+      <GenericList
+        key="timetable"
+        v-if="selectedStop && currentStopDepartures.length"
+        v-model:selected="selectedStop"
+        :items="currentStopDepartures"
+        :hiddenSortIcon="true"
+        header="Time"
+        sortField="time"
+      />
+    </BusSection>
   </div>
 </template>
 
 <style scoped>
-.bus-lines {
+.bus-lines-section {
   display: flex;
-  flex-direction: column;
   gap: 16px;
 }
-.bus-lines__container {
-  display: flex;
-  gap: 16px;
+
+.bus-lines__line-stop-section {
+  height: fit-content;
 }
 </style>

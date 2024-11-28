@@ -31,6 +31,7 @@ html,
 body {
   height: 100%;
   margin: 0;
+  background: #f8f8fb;
 }
 
 #app {
@@ -46,5 +47,8 @@ body {
 
 main {
   margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 </style>

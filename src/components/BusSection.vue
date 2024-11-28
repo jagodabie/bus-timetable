@@ -37,7 +37,7 @@ const props = defineProps<{
 .bus-lines__timetable-section {
   width: 50%;
 }
-.bus-lines__container {
+.bus-lines-section {
   background: #fff;
   display: flex;
   gap: 10px;

@@ -10,31 +10,28 @@ const props = defineProps<{
   selectedLine: BusLine | null;
 }>();
 
-// Emit event for selected line
 const emit = defineEmits<{
   (e: "update:selectedLine", line: BusLine | null): void;
 }>();
 
-// Handle line selection
 const selectLine = (line: BusLine) => {
   store.dispatch("fetchBusStops/generateBusStopsList", line);
   emit("update:selectedLine", line);
 };
 
-// Access the list of bus lines from Vuex
 const busLinesList = computed(() => store.state.fetchBusStops.busLinesList);
 </script>
 
 <template>
-  <div class="select-bus-lines-section__container">
-    <h6 class="select-bus-lines-section__title">Select Bus Line</h6>
-    <div class="select-bus-lines-section__list">
+  <div class="bus-lines-select-section__container">
+    <h6 class="bus-lines-select-section__title">Select Bus Line</h6>
+    <div class="bus-lines-select-section__list">
       <button
         v-for="line in busLinesList"
         :key="line"
         @click="selectLine(line)"
         :class="[
-          'select-bus-lines-section__button',
+          'bus-lines-select-section__button',
           { selected: selectedLine === line },
         ]"
       >
@@ -45,7 +42,7 @@ const busLinesList = computed(() => store.state.fetchBusStops.busLinesList);
 </template>
 
 <style scoped>
-.select-bus-lines-section__container {
+.bus-lines-select-section__container {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -53,13 +50,13 @@ const busLinesList = computed(() => store.state.fetchBusStops.busLinesList);
   background-color: #fff;
 }
 
-.select-bus-lines-section__title {
+.bus-lines-select-section__title {
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 20px;
 }
 
-.select-bus-lines-section__button {
+.bus-lines-select-section__button {
   margin: 2px;
   padding: 10px 20px;
   background-color: #007bff;
@@ -69,7 +66,7 @@ const busLinesList = computed(() => store.state.fetchBusStops.busLinesList);
   cursor: pointer;
 }
 
-.select-bus-lines-section__button:hover {
+.bus-lines-select-section__button:hover {
   background-color: #0056b3;
 }
 

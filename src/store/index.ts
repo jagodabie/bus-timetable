@@ -96,7 +96,6 @@ export const fetchBusStops: Module<FetchState, any> = {
         line: item.line,
         time: item.time,
       }));
-      //TODO: zoabaczyc czy te pola sa potrzebne
       commit("SET_CURRENT_BUS_STOPS_LIST", busStopsList);
     },
     generateStopsList({ commit, state }) {
