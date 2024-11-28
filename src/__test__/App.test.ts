@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/vue";
 import { createStore } from "vuex";
 import { createRouter, createWebHistory } from "vue-router";
+
 import App from "../App.vue";
 import NavTabs from "../components/ui/NavTabs.vue";
 

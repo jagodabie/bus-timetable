@@ -1,9 +1,9 @@
 <template>
   <div class="bus-lines__line-stop-section">
     <div v-if="showTitle" class="bus-lines__line-stop-section__container">
-      <h3 class="bus-lines__line-stop-section__title">
+      <h6 class="bus-lines__line-stop-section__title">
         {{ sectionTitle }}
-      </h3>
+      </h6>
 
       <slot></slot>
     </div>
@@ -24,11 +24,14 @@ const props = defineProps<{
 </script>
 <style scoped>
 .bus-lines__line-stop-section__title {
-  padding: 24px 19px 24px 16px;
+  padding: 27px;
+  font-size: 14px;
+  font-weight: 500;
 }
 .bus-lines__line-stop-section {
   display: flex;
   flex-direction: column;
+  background: #fff;
 }
 .bus-lines__line-stop-section,
 .bus-lines__timetable-section {

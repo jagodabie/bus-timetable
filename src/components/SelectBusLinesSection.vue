@@ -5,6 +5,7 @@ import { useStore } from "vuex";
 
 const store = useStore();
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps<{
   selectedLine: BusLine | null;
 }>();
@@ -26,7 +27,7 @@ const busLinesList = computed(() => store.state.fetchBusStops.busLinesList);
 
 <template>
   <div class="select-bus-lines-section__container">
-    <h2 class="select-bus-lines-section__title">Select Bus Line</h2>
+    <h6 class="select-bus-lines-section__title">Select Bus Line</h6>
     <div class="select-bus-lines-section__list">
       <button
         v-for="line in busLinesList"
@@ -48,7 +49,16 @@ const busLinesList = computed(() => store.state.fetchBusStops.busLinesList);
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding: 30px 20px;
+  background-color: #fff;
 }
+
+.select-bus-lines-section__title {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
 .select-bus-lines-section__button {
   margin: 2px;
   padding: 10px 20px;
@@ -58,9 +68,11 @@ const busLinesList = computed(() => store.state.fetchBusStops.busLinesList);
   border-radius: 5px;
   cursor: pointer;
 }
+
 .select-bus-lines-section__button:hover {
   background-color: #0056b3;
 }
+
 .selected {
   background-color: #2e3e6e;
 }

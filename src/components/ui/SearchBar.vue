@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
+
 import SearchIcon from "../../assets/icons/SearchIcon.vue";
 
 const props = defineProps<{
@@ -51,7 +52,7 @@ const onInput = () => {
 .search__floating-label {
   width: 100%;
   position: absolute;
-  padding: 7px;
+  padding: 11px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -69,8 +70,9 @@ input {
   width: 100%;
   border-radius: 4px;
   border: 1px solid #9a9da4;
-  padding: 7px;
+  padding: 11px;
   transition: border-color 0.3s, outline-color 0.3s;
+  height: 40px;
 }
 
 input:active,
@@ -82,7 +84,7 @@ input:focus {
 
 .focus-label {
   position: absolute;
-  bottom: 6px;
+  bottom: 14px;
   z-index: 1;
 }
 

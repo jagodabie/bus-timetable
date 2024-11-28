@@ -1,3 +1,11 @@
+<script setup lang="ts">
+import { Tab } from "@/types/BusStop";
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const props = defineProps<{
+  tabs: Tab[];
+}>();
+</script>
 <template>
   <nav>
     <router-link
@@ -10,30 +18,21 @@
     </router-link>
   </nav>
 </template>
-
-<script setup lang="ts">
-import { Tab } from "@/types/BusStop";
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const props = defineProps<{
-  tabs: Tab[];
-}>();
-</script>
-
 <style scoped>
 nav {
   background: #fff;
   display: flex;
-  margin-top: 30px;
+  margin-top: 20px;
+  padding-left: 16px;
 }
 
 a {
   text-decoration: none;
-  font-size: 20px;
+  font-size: 14px;
   line-height: 24px;
   color: #6c757d;
   position: relative;
-  padding: 30px;
+  padding: 22px 28px;
 }
 
 a.active-tab {

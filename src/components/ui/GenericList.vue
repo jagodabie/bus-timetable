@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { Nullable, Recordable } from "@/types";
 import { computed, ref } from "vue";
+
 import SortIcon from "../../assets/icons/SortIcon.vue";
+
+import { Nullable, Recordable } from "@/types";
 import { listOfUniqueValues, sortGenericItems } from "../../utils/index";
 
 const props = defineProps<{
@@ -77,7 +79,7 @@ ul {
 li {
   list-style-type: none;
   padding: 0;
-  padding: 20px 19px 24px 16px;
+  padding: 20px;
   margin: 1px;
   background: #fff;
   border-top: 1px solid #d9d9d9;
@@ -95,19 +97,21 @@ li:hover {
   display: none;
 }
 
-.generic-list__container {
-  padding: 10px;
-  border: 1px solid #d9d9d9;
-}
-
 .generic-list__header {
   display: flex;
-  font-size: 12px;
   gap: 10px;
-  padding: 24px 19px 24px 16px;
+  padding: 20px 19px 20px 16px;
   margin-bottom: 1px;
   background: #fff;
+  position: relative;
 }
+
+.generic-list__title {
+  font-size: 12px;
+  font-weight: 500;
+  position: relative;
+}
+
 .generic-list__error-message {
   color: #ff4d4f; /* Red error message */
   font-size: 14px;
@@ -116,7 +120,9 @@ li:hover {
 
 .generic-list__sort-icon {
   cursor: pointer;
-  margin-left: auto;
+  position: absolute;
+  left: 80px;
+  top: 25%;
 }
 
 .generic-list__sort-icon:hover {

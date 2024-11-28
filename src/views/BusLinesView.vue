@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { BusLine, BusStop } from "@/types";
 import { computed, ref, Ref } from "vue";
 import { useStore } from "vuex";
 
 import SelectBusLinesSection from "../components/SelectBusLinesSection.vue";
 import GenericList from "./../components/ui/GenericList.vue";
 import BusSection from "../components/BusSection.vue";
+
+import { BusLine, BusStop } from "@/types";
 
 const selectedLine: Ref<BusLine | null> = ref(null);
 const selectedStop: Ref<BusStop | null> = ref(null);
@@ -45,7 +46,7 @@ const handleDepartureTime = () => {
         <GenericList
           v-if="selectedLine && currentBusStopsList.length"
           key="stops"
-          header="Bus Stop"
+          header="Bus Stops"
           :items="currentBusStopsList"
           v-model:selected="selectedStop"
           :onItemClick="handleDepartureTime"
@@ -77,9 +78,10 @@ const handleDepartureTime = () => {
 .bus-lines {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 .bus-lines__container {
   display: flex;
+  gap: 16px;
 }
 </style>

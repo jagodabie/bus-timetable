@@ -17,7 +17,7 @@ const props = defineProps<{
 .placeholder__container {
   height: 444px;
   display: flex;
-
+  background: #fff;
   border: 2px dashed #9a9da4;
   border-radius: 4px;
   justify-content: center;
@@ -27,6 +27,7 @@ const props = defineProps<{
     font-size: 14px;
     line-height: 24px;
     color: #63666e;
+    margin-top: 15px;
   }
 }
 </style>

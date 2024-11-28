@@ -1,5 +1,6 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/vue";
 import { describe, it, expect, vi } from "vitest";
+
 import SearchBar from "../../components/ui/SearchBar.vue";
 
 import "@testing-library/jest-dom";

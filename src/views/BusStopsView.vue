@@ -22,8 +22,10 @@ onMounted(async () => {
 
 <template>
   <div class="bus-stops">
-    <div class="search__wrapper">
-      <SearchBar v-model:query="searchTerm" label="Search" />
+    <div class="bus-stops-search-section">
+      <div class="search__wrapper">
+        <SearchBar v-model:query="searchTerm" label="Search" />
+      </div>
     </div>
     <GenericList
       :items="filteredBusStops"
@@ -34,7 +36,17 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+.bus-stops-search-section {
+  width: 100%;
+  background: #fff;
+}
+
 .search__wrapper {
-  max-width: 256px;
+  max-width: 299px;
+  padding: 13px 6px;
+}
+
+.bus-stops > .generic-list__container {
+  margin-top: 0;
 }
 </style>

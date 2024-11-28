@@ -1,9 +1,10 @@
 import { render, screen } from "@testing-library/vue";
 import { describe, it, expect } from "vitest";
+import { createRouter, createWebHistory } from "vue-router";
+
 import NavTabs from "../../components/ui/NavTabs.vue";
 
 import "@testing-library/jest-dom";
-import { createRouter, createWebHistory } from "vue-router";
 
 const mockTabs = [
   { path: "/home", label: "Home" },
@@ -16,7 +17,6 @@ const routes = mockTabs.map((tab) => ({
   component: { template: `<div>${tab.label} Page</div>` },
 }));
 
-// Create a mock router
 const router = createRouter({
   history: createWebHistory(),
   routes,

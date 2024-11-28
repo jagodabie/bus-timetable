@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useStore } from "vuex";
-import NavTabs from "./components/ui/NavTabs.vue";
 import { onMounted } from "vue";
+
+import NavTabs from "./components/ui/NavTabs.vue";
 
 const tabs = [
   { path: "/", label: "Bus Lines" },
@@ -17,7 +18,7 @@ onMounted(async () => {
 
 <template>
   <header>
-    <h2>Timetable</h2>
+    <h4>Timetable</h4>
   </header>
   <NavTabs :tabs="tabs" />
   <main>
@@ -33,11 +34,9 @@ body {
 }
 
 #app {
-  padding: 60px 50px;
+  padding: 45px 30px;
   width: 100%;
   box-sizing: border-box;
-  /* TODO: change color  #f8f9fa*/
-  background: red;
   font-size: 12px;
 
   display: flex;
