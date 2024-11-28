@@ -1,48 +1,31 @@
-<script lang="ts">
-import { defineComponent, Ref, ref } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 import SearchIcon from "../../assets/icons/SearchIcon.vue";
 
-export default defineComponent({
-  name: "SearchBar",
-  components: {
-    SearchIcon,
-  },
-  props: {
-    label: {
-      type: String,
-      default: "Search", // Default placeholder text
-    },
-    debounceDelay: {
-      type: Number,
-      default: 300, // Default debounce delay in milliseconds
-    },
-  },
-  emits: ["update:query"], // Emit an event when the query changes
-  setup(props, { emit }) {
-    const query: Ref<string> = ref(""); // Local query state
-    const showIcon: Ref<boolean> = ref(true); // Controls the visibility of the icon
-    const floatLabel: Ref<boolean> = ref(false);
+const props = defineProps<{
+  label?: string;
+  debounceDelay?: number;
+}>();
 
-    let debounceTimeout: ReturnType<typeof setTimeout> | null = null; // Timeout reference
+const emit = defineEmits<{
+  (e: "update:query", value: string): void;
+}>();
 
-    const onInput = () => {
-      if (debounceTimeout) {
-        clearTimeout(debounceTimeout); // Clear previous timeout if input is still happening
-      }
-      debounceTimeout = setTimeout(() => {
-        emit("update:query", query.value); // Emit only after the debounce delay
-      }, props.debounceDelay);
-    };
+const query = ref<string>("");
+const floatLabel = ref<boolean>(false);
 
-    return {
-      query,
-      showIcon,
-      floatLabel,
-      onInput,
-    };
-  },
-});
+let debounceTimeout: ReturnType<typeof setTimeout> | null = null;
+
+const onInput = () => {
+  if (debounceTimeout) {
+    clearTimeout(debounceTimeout);
+  }
+  debounceTimeout = setTimeout(() => {
+    emit("update:query", query.value);
+  }, props.debounceDelay ?? 300);
+};
 </script>
+
 <template>
   <div class="search__container">
     <div class="search__floating-label" @click="floatLabel = true">
@@ -58,6 +41,7 @@ export default defineComponent({
     />
   </div>
 </template>
+
 <style scoped lang="scss">
 .search__container {
   width: 100%;
@@ -86,11 +70,10 @@ input {
   border-radius: 4px;
   border: 1px solid #9a9da4;
   padding: 7px;
-  transition: border-color 0.3s, outline-color 0.3s; /* Smooth transition */
+  transition: border-color 0.3s, outline-color 0.3s;
 }
 
 input:active,
-input:focus,
 input:focus {
   border: 1px solid #1952e1;
   outline: none;

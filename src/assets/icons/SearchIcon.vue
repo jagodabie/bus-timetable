@@ -6,6 +6,7 @@
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     class="search-icon"
+    data-testid="search-icon"
   >
     <path
       fill-rule="evenodd"

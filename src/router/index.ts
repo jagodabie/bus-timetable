@@ -1,17 +1,17 @@
 import { createRouter, createWebHistory } from "vue-router";
-import BusLines from "../views/BusLines.vue";
-import BusStops from "../views/BusStop.vue";
+import BusLinesView from "../views/BusLinesView.vue";
+import BusStopView from "../views/BusStopsView.vue";
 
 const routes = [
   {
     path: "/",
-    name: "BusLines",
-    component: BusLines,
+    name: "BusLinesView",
+    component: BusLinesView,
   },
   {
     path: "/stops",
-    name: "BusStop",
-    component: BusStops,
+    name: "BusStopView",
+    component: BusStopView,
   },
 ];
 

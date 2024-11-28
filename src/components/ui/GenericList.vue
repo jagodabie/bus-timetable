@@ -1,8 +1,47 @@
+<script setup lang="ts">
+import { Nullable, Recordable } from "@/types";
+import { computed, ref } from "vue";
+import SortIcon from "../../assets/icons/SortIcon.vue";
+import { listOfUniqueValues, sortGenericItems } from "../../utils/index";
+
+const props = defineProps<{
+  items: Nullable<Recordable[]>; // Array of items (nullable)
+  selected?: Nullable<Recordable>; // Currently selected item (nullable)
+  header?: Nullable<string>;
+  hiddenSortIcon?: Nullable<boolean>; // Hide sort icon
+  onItemClick?: () => void; // Callback function for item click
+  sortField: string;
+}>();
+
+const isAscending = ref(true); // Track sorting direction
+
+const sortedItems = computed(() => {
+  if (!props.items) return [];
+  return listOfUniqueValues(
+    sortGenericItems([...props.items], props.sortField, isAscending.value),
+    "id"
+  );
+});
+
+const emit = defineEmits<{
+  (e: "update:selected", item: Recordable): void;
+}>();
+
+const handleSelection = (item: any) => {
+  emit("update:selected", item);
+  if (props.onItemClick) props.onItemClick();
+};
+
+const sortItems = () => {
+  isAscending.value = !isAscending.value;
+};
+</script>
 <template>
   <div class="generic-list__container">
-    <div class="generic-list__header">
-      <h6 v-if="header" class="generic-list__title">{{ header }}</h6>
+    <div v-if="header" class="generic-list__header">
+      <h6 class="generic-list__title">{{ header }}</h6>
       <div
+        v-if="!hiddenSortIcon"
         :class="[
           'generic-list__sort-icon',
           { hidden: hiddenSortIcon },
@@ -28,48 +67,6 @@
     <p v-else class="generic-list__error-message">No items to display.</p>
   </div>
 </template>
-
-<script setup lang="ts">
-import { Nullable, Recordable } from "@/types";
-import { computed, ref } from "vue";
-import SortIcon from "../../assets/icons/SortIcon.vue";
-import { listOfUniqueValues, sortGenericItems } from "@/utils";
-
-/* Define props */
-const props = defineProps<{
-  items: Nullable<Recordable[]>; // Array of items (nullable)
-  selected?: Nullable<Recordable>; // Currently selected item (nullable)
-  header: Nullable<string>;
-  hiddenSortIcon?: Nullable<boolean>;
-  onItemClick?: () => void; // Callback function for item click
-  // TODO: to nie jest elastic
-  sortField: string;
-}>();
-
-/* Sorting state and logic */
-const isAscending = ref(true); // Track sorting direction
-/* Sorted items computed property */
-const sortedItems = computed(() => {
-  if (!props.items) return [];
-  return listOfUniqueValues(
-    sortGenericItems([...props.items], props.sortField, isAscending.value),
-    "id"
-  );
-});
-
-const emit = defineEmits<{
-  (e: "update:selected", item: Recordable): void;
-}>();
-
-const handleSelection = (item: any) => {
-  emit("update:selected", item);
-  if (props.onItemClick) props.onItemClick();
-};
-/* Toggle sorting direction */
-const sortItems = () => {
-  isAscending.value = !isAscending.value;
-};
-</script>
 
 <style scoped>
 ul {

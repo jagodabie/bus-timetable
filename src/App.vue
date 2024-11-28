@@ -9,7 +9,6 @@ const tabs = [
 ];
 
 const store = useStore();
-console.log("store", store);
 onMounted(async () => {
   await store.dispatch("fetchBusStops/fetchData");
   await store.dispatch("fetchBusStops/generateStopsList");

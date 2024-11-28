@@ -11,30 +11,19 @@
   </nav>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { Tab } from "@/types/BusStop";
 
-interface Tab {
-  path: string; // Route path
-  label: string; // Display name
-}
-
-export default defineComponent({
-  name: "NavTabs",
-  props: {
-    tabs: {
-      type: Array as () => Tab[], // Define the type of the tabs prop
-      required: true,
-    },
-  },
-});
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const props = defineProps<{
+  tabs: Tab[];
+}>();
 </script>
 
 <style scoped>
 nav {
   background: #fff;
   display: flex;
-
   margin-top: 30px;
 }
 

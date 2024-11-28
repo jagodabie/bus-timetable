@@ -1,0 +1,85 @@
+<script setup lang="ts">
+import { BusLine, BusStop } from "@/types";
+import { computed, ref, Ref } from "vue";
+import { useStore } from "vuex";
+
+import SelectBusLinesSection from "../components/SelectBusLinesSection.vue";
+import GenericList from "./../components/ui/GenericList.vue";
+import BusSection from "../components/BusSection.vue";
+
+const selectedLine: Ref<BusLine | null> = ref(null);
+const selectedStop: Ref<BusStop | null> = ref(null);
+
+const store = useStore();
+
+const currentBusStopsList = computed(
+  () => store.state.fetchBusStops.currentBusStopsList
+);
+
+const currentStopDepartures = computed(
+  () => store.state.fetchBusStops.currentStopDepartures
+);
+
+const handleDepartureTime = () => {
+  store.dispatch(
+    "fetchBusStops/generateCurrentStopDepartures",
+    selectedStop.value
+  );
+};
+</script>
+
+<template>
+  <div class="bus-lines">
+    <SelectBusLinesSection
+      :selectedLine="selectedLine"
+      @update:selectedLine="selectedLine = $event"
+    />
+    <div class="bus-lines__container">
+      <BusSection
+        key="stops"
+        :showTitle="selectedLine && currentBusStopsList.length"
+        :sectionTitle="`Bus Line: ${selectedLine}`"
+        :onItemClick="handleDepartureTime"
+        :placeholderTitle="`Please select the bus stop first`"
+      >
+        <GenericList
+          v-if="selectedLine && currentBusStopsList.length"
+          key="stops"
+          header="Bus Stop"
+          :items="currentBusStopsList"
+          v-model:selected="selectedStop"
+          :onItemClick="handleDepartureTime"
+          sortField="order"
+        />
+      </BusSection>
+
+      <BusSection
+        :showTitle="selectedStop && currentStopDepartures.length"
+        :sectionTitle="`Bus Line: ${selectedStop?.name}`"
+        :onItemClick="handleDepartureTime"
+        :placeholderTitle="`Please select the bus stop first`"
+      >
+        <GenericList
+          key="timetable"
+          v-if="selectedStop && currentStopDepartures.length"
+          v-model:selected="selectedStop"
+          :items="currentStopDepartures"
+          :hiddenSortIcon="true"
+          header="Time"
+          sortField="time"
+        />
+      </BusSection>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.bus-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.bus-lines__container {
+  display: flex;
+}
+</style>
